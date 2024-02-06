@@ -1,22 +1,20 @@
 package dev.elma.commands.web;
 
 import dev.elma.commands.dtos.ProfileDto;
+import dev.elma.commands.dtos.ProfileDtoRequest;
 import dev.elma.commands.entities.ProfileEntity;
-import dev.elma.commands.entities.UserEntity;
 import dev.elma.commands.mappers.ProfileMapper;
 import dev.elma.commands.repositories.ProfileRepository;
+import dev.elma.commands.repositories.RoleRepository;
 import dev.elma.commands.repositories.UserRepository;
-import lombok.RequiredArgsConstructor;
-import org.modelmapper.internal.bytebuddy.implementation.bytecode.Throw;
+import dev.elma.commands.services.implementations.ProfileServiceIntImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/profiles")
@@ -24,7 +22,11 @@ public class ProfilesRestController {
     @Autowired
     private ProfileRepository profileRepository;
     @Autowired
+    private ProfileServiceIntImpl profileServiceImp;
+    @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private RoleRepository roleRepository;
     private final ProfileMapper profileMapper = new ProfileMapper();
 
     @GetMapping("/all")
@@ -45,13 +47,47 @@ public class ProfilesRestController {
     @GetMapping("/name/{name}")
     public ResponseEntity<?> getProfileByName(@PathVariable String name) {
         try {
-            ProfileEntity profile = profileRepository.findByProfileName(name).orElseThrow();
-            return new ResponseEntity<>(profileMapper.toProfileDto(profile), HttpStatus.OK) ;
+            Optional<?> profile = profileServiceImp.findProfileByName(name);
+            return new ResponseEntity<>(profileMapper.toProfileDto((ProfileEntity) profile.orElseThrow()), HttpStatus.OK) ;
         }
         catch (Exception e) {
             return new ResponseEntity<>("Profile Name Not Found!", HttpStatus.EXPECTATION_FAILED) ;
         }
 
 
+    }
+    //Queries
+    @PostMapping("/add")
+    public ResponseEntity<?> addProfile(@RequestBody ProfileDtoRequest profileDtoRequest) {
+        try{
+            Optional<?> profile = profileServiceImp.saveProfile(profileDtoRequest);
+            return new ResponseEntity<>(profileMapper.toProfileDto((ProfileEntity) profile.orElseThrow()), HttpStatus.OK);
+
+        }
+        catch (Exception e) {
+            return new ResponseEntity<>("Profile Not Added!", HttpStatus.EXPECTATION_FAILED);
+        }
+    }
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?> updateProfile(@PathVariable Long id, @RequestBody ProfileDtoRequest profileDtoRequest) {
+        try {
+            Optional<?> profile = profileServiceImp.updateProfile(id, profileDtoRequest);
+            return new ResponseEntity<>(profileMapper.toProfileDto((ProfileEntity) profile.orElseThrow()), HttpStatus.OK);
+        }
+        catch (Exception e) {
+            System.out.printf("Error: %s", e.getMessage());
+            return new ResponseEntity<>("Profile Not Updated!", HttpStatus.EXPECTATION_FAILED);
+        }
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteProfile(@PathVariable Long id) {
+        try {
+            Optional<?> profile = profileServiceImp.deleteProfile(id);
+            return new ResponseEntity<>(profileMapper.toProfileDto((ProfileEntity) profile.orElseThrow()), HttpStatus.OK);
+        }
+        catch (Exception e) {
+            return new ResponseEntity<>("Profile Not Deleted!", HttpStatus.EXPECTATION_FAILED);
+        }
     }
 }

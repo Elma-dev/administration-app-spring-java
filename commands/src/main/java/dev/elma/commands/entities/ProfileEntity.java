@@ -15,7 +15,7 @@ import java.util.List;
 public class ProfileEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String profileName;
     @ManyToMany
     @JoinTable(

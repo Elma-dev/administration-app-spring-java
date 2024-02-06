@@ -13,6 +13,7 @@ import java.util.List;
 @ToString
 @Builder
 public class ProfileDto {
+
     private String profileName;
     private List<RoleEntity> roles;
 }
