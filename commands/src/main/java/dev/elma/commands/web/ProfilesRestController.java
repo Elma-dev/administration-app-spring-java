@@ -13,21 +13,22 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Constructor;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/profiles")
 public class ProfilesRestController {
-    @Autowired
-    private ProfileRepository profileRepository;
-    @Autowired
-    private ProfileServiceIntImpl profileServiceImp;
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private RoleRepository roleRepository;
-    private final ProfileMapper profileMapper = new ProfileMapper();
+    private final ProfileRepository profileRepository;
+    private final ProfileServiceIntImpl profileServiceImp;
+    private final ProfileMapper profileMapper ;
+
+    public ProfilesRestController(ProfileRepository profileRepository, ProfileServiceIntImpl profileServiceImp) {
+        this.profileRepository = profileRepository;
+        this.profileServiceImp = profileServiceImp;
+        profileMapper = new ProfileMapper();
+    }
 
     @GetMapping("/all")
     public List<ProfileDto> getAllProfiles() {

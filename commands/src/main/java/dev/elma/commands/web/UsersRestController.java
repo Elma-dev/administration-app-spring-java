@@ -3,10 +3,8 @@ package dev.elma.commands.web;
 
 import dev.elma.commands.dtos.UserDto;
 import dev.elma.commands.dtos.UserDtoRequest;
-import dev.elma.commands.entities.ProfileEntity;
 import dev.elma.commands.entities.UserEntity;
 import dev.elma.commands.mappers.UserMapper;
-import dev.elma.commands.repositories.ProfileRepository;
 import dev.elma.commands.repositories.UserRepository;
 import dev.elma.commands.services.implementations.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +19,16 @@ import java.util.Optional;
 @RequestMapping("/api/users")
 
 public class UsersRestController {
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private UserServiceImpl userServiceImpl;
-    private final UserMapper userMapper= new UserMapper();
+    private final UserRepository userRepository;
+
+    private final UserServiceImpl userServiceImpl;
+    private final UserMapper userMapper;
+
+    public UsersRestController(UserRepository userRepository, UserServiceImpl userServiceImpl) {
+        this.userRepository = userRepository;
+        this.userServiceImpl = userServiceImpl;
+        userMapper = new UserMapper();
+    }
 
     //Queries
     @GetMapping("/all")
