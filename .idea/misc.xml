@@ -8,6 +8,7 @@
         <option value="$PROJECT_DIR$/commands/pom.xml" />
         <option value="$PROJECT_DIR$/queries/pom.xml" />
         <option value="$PROJECT_DIR$/common/pom.xml" />
+        <option value="$PROJECT_DIR$/commons/pom.xml" />
       </list>
     </option>
     <option name="workspaceImportForciblyTurnedOn" value="true" />
