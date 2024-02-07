@@ -17,45 +17,11 @@ import java.util.Optional;
 @RequestMapping("/api/roles")
 public class RolesRestController {
     private final RoleServiceIntImpl roleServiceImpl;
-    private final RoleRepository roleRepository;
-    private final RoleMapper roleMapper;
 
-    public RolesRestController(RoleServiceIntImpl roleServiceImpl, RoleRepository roleRepository) {
+    public RolesRestController(RoleServiceIntImpl roleServiceImpl) {
         this.roleServiceImpl = roleServiceImpl;
-        this.roleRepository = roleRepository;
-        roleMapper = new RoleMapper();
     }
 
-    @GetMapping("/all")
-    public ResponseEntity<?> getAllRoles() {
-        try {
-            List<RoleDto> all = roleRepository.findAll().stream().map(roleMapper::toRoleDto).toList();
-            return ResponseEntity.ok(all);
-        }
-        catch (Exception e) {
-            return ResponseEntity.badRequest().body(e);
-        }
-    }
-    @GetMapping("/name/{name}")
-    public ResponseEntity<?> getRoleByName( @PathVariable String name) {
-        try {
-            Optional<?> role = roleServiceImpl.findRoleByName(RoleName.valueOf(name));
-            return new ResponseEntity<>(role, HttpStatus.OK);
-        }
-        catch (Exception e) {
-            return ResponseEntity.badRequest().body(e);
-        }
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getRoleById(@PathVariable Long id) {
-        try {
-            return new ResponseEntity<>(roleMapper.toRoleDto(roleRepository.findById(id).orElseThrow()), HttpStatus.OK);
-        }
-        catch (Exception e) {
-            return new ResponseEntity<>("Role Not Found!", HttpStatus.EXPECTATION_FAILED);
-        }
-    }
 
     @PostMapping("/add")
     public ResponseEntity<?> addRole(@RequestBody RoleDto roleDto) {

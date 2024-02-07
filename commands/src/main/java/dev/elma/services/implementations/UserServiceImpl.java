@@ -60,18 +60,4 @@ public class UserServiceImpl implements UserServiceInt {
         }
     }
 
-    @Override
-    public Optional<?> findUserByUsername(String username) {
-        return Optional.empty();
-    }
-
-    @Override
-    public Optional<?> findUserByEmail(String email) {
-        return Optional.empty();
-    }
-
-    @Override
-    public Optional<?> findUserByProfileName(String profileName) {
-        return Optional.empty();
-    }
 }

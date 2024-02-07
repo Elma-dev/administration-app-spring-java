@@ -19,54 +19,14 @@ import java.util.Optional;
 @RequestMapping("/api/users")
 
 public class UsersRestController {
-    private final UserRepository userRepository;
-
     private final UserServiceImpl userServiceImpl;
     private final UserMapper userMapper;
 
-    public UsersRestController(UserRepository userRepository, UserServiceImpl userServiceImpl) {
-        this.userRepository = userRepository;
+    public UsersRestController(UserServiceImpl userServiceImpl) {
         this.userServiceImpl = userServiceImpl;
         userMapper = new UserMapper();
     }
 
-    //Queries
-    @GetMapping("/all")
-    public List<UserDto> getAllUsers() {
-        List<UserEntity> all = userRepository.findAll();
-        return all.stream().map(userMapper::toUserDto).toList();
-    }
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getUserById(@PathVariable Long id) {
-
-        try {
-            return new ResponseEntity<>(userMapper.toUserDto(userRepository.findById(id).orElseThrow()), HttpStatus.OK);
-        }
-        catch (Exception e) {
-            return new ResponseEntity<>("User Not Found!", HttpStatus.EXPECTATION_FAILED);
-        }
-    }
-    @GetMapping("/username/{username}")
-    public ResponseEntity<?> getUserByUsername(@PathVariable String username) {
-        try {
-            return  new ResponseEntity<>(userMapper.toUserDto(userRepository.findByUsername(username).orElseThrow()), HttpStatus.OK);
-        }
-        catch (Exception e) {
-            return new ResponseEntity<>("User Not Found!", HttpStatus.EXPECTATION_FAILED);
-        }
-
-    }
-    @GetMapping("/email/{email}")
-    public ResponseEntity<?> getUserByEmail(@PathVariable String email) {
-        try {
-            return new ResponseEntity<>(userMapper.toUserDto(userRepository.findByEmail(email).orElseThrow()), HttpStatus.OK);
-        }
-        catch (Exception e) {
-            return new ResponseEntity<>("User Not Found!", HttpStatus.EXPECTATION_FAILED);
-        }
-    }
-
-    //Commands
     @PostMapping("/add")
     public ResponseEntity<?> addUser(@RequestBody UserDtoRequest userDtoRequest) {
         try {

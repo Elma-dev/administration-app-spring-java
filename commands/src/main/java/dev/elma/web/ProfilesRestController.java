@@ -17,44 +17,14 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/profiles")
 public class ProfilesRestController {
-    private final ProfileRepository profileRepository;
     private final ProfileServiceIntImpl profileServiceImp;
     private final ProfileMapper profileMapper ;
 
-    public ProfilesRestController(ProfileRepository profileRepository, ProfileServiceIntImpl profileServiceImp) {
-        this.profileRepository = profileRepository;
+    public ProfilesRestController(ProfileServiceIntImpl profileServiceImp) {
         this.profileServiceImp = profileServiceImp;
         profileMapper = new ProfileMapper();
     }
 
-    @GetMapping("/all")
-    public List<ProfileDto> getAllProfiles() {
-        List<ProfileEntity> all = profileRepository.findAll();
-        return all.stream().map(profileMapper::toProfileDto).toList();
-    }
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getProfileById(@PathVariable Long id) {
-        try {
-            ProfileEntity profile = profileRepository.findById(id).orElseThrow();
-            return new ResponseEntity<>(profileMapper.toProfileDto(profile), HttpStatus.OK) ;
-        }
-        catch (Exception e) {
-            return new ResponseEntity<>("Profile Id Not Found!", HttpStatus.EXPECTATION_FAILED) ;
-        }
-    }
-    @GetMapping("/name/{name}")
-    public ResponseEntity<?> getProfileByName(@PathVariable String name) {
-        try {
-            Optional<?> profile = profileServiceImp.findProfileByName(name);
-            return new ResponseEntity<>(profileMapper.toProfileDto((ProfileEntity) profile.orElseThrow()), HttpStatus.OK) ;
-        }
-        catch (Exception e) {
-            return new ResponseEntity<>("Profile Name Not Found!", HttpStatus.EXPECTATION_FAILED) ;
-        }
-
-
-    }
-    //Queries
     @PostMapping("/add")
     public ResponseEntity<?> addProfile(@RequestBody ProfileDtoRequest profileDtoRequest) {
         try{

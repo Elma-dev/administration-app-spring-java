@@ -1,15 +1,18 @@
 package dev.elma.web;
 
-import dev.elma.repositories.RoleRepository;
-import dev.elma.services.implementations.RoleServiceIntImpl;
 import dev.elma.dtos.RoleDto;
+import dev.elma.entities.RoleEntity;
 import dev.elma.enums.RoleName;
 import dev.elma.mappers.RoleMapper;
+import dev.elma.services.implementations.RoleServiceIntImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,71 +20,51 @@ import java.util.Optional;
 @RequestMapping("/api/roles")
 public class RolesRestController {
     private final RoleServiceIntImpl roleServiceImpl;
-    private final RoleRepository roleRepository;
     private final RoleMapper roleMapper;
 
-    public RolesRestController(RoleServiceIntImpl roleServiceImpl, RoleRepository roleRepository) {
+    public RolesRestController(RoleServiceIntImpl roleServiceImpl) {
         this.roleServiceImpl = roleServiceImpl;
-        this.roleRepository = roleRepository;
         roleMapper = new RoleMapper();
     }
 
     @GetMapping("/all")
     public ResponseEntity<?> getAllRoles() {
         try {
-            List<RoleDto> all = roleRepository.findAll().stream().map(roleMapper::toRoleDto).toList();
-            return ResponseEntity.ok(all);
+               Optional<?> rolesOp = roleServiceImpl.showAllRoles();
+            List<RoleDto> listRoles =  new ArrayList<>();
+
+            rolesOp.ifPresent(
+                    roles -> {
+                        ((List<RoleEntity>) roles).forEach(
+                                userEntity -> listRoles.add(roleMapper.toRoleDto(userEntity))
+                        );
+                    }
+            );
+            return new ResponseEntity<>(listRoles, HttpStatus.OK);
         }
         catch (Exception e) {
-            return ResponseEntity.badRequest().body(e);
+            return new ResponseEntity<>("No Roles Found!", HttpStatus.EXPECTATION_FAILED);
         }
     }
     @GetMapping("/name/{name}")
     public ResponseEntity<?> getRoleByName( @PathVariable String name) {
         try {
             Optional<?> role = roleServiceImpl.findRoleByName(RoleName.valueOf(name));
-            return new ResponseEntity<>(role, HttpStatus.OK);
-        }
-        catch (Exception e) {
-            return ResponseEntity.badRequest().body(e);
-        }
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getRoleById(@PathVariable Long id) {
-        try {
-            return new ResponseEntity<>(roleMapper.toRoleDto(roleRepository.findById(id).orElseThrow()), HttpStatus.OK);
+            return new ResponseEntity<>(roleMapper.toRoleDto((RoleEntity) role.orElseThrow()), HttpStatus.OK);
         }
         catch (Exception e) {
             return new ResponseEntity<>("Role Not Found!", HttpStatus.EXPECTATION_FAILED);
         }
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<?> addRole(@RequestBody RoleDto roleDto) {
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getRoleById(@PathVariable Long id) {
         try {
-            return new ResponseEntity<>(roleServiceImpl.saveRole(roleDto), HttpStatus.OK);
+            Optional<?> role = roleServiceImpl.showOneRoleUsingId(id);
+            return new ResponseEntity<>(roleMapper.toRoleDto((RoleEntity) role.orElseThrow()), HttpStatus.OK);
         }
         catch (Exception e) {
-            return new ResponseEntity<>("Failed Add Role!", HttpStatus.EXPECTATION_FAILED);
-        }
-    }
-    @PutMapping("/update/{id}")
-    public ResponseEntity<?> updateRole(@PathVariable Long id, @RequestBody RoleDto roleDto) {
-        try {
-            return new ResponseEntity<>(roleServiceImpl.updateRole(roleDto), HttpStatus.OK);
-        }
-        catch (Exception e) {
-            return new ResponseEntity<>("Role Not Updated!", HttpStatus.EXPECTATION_FAILED);
-        }
-    }
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteRole(@PathVariable Long id) {
-        try {
-            return new ResponseEntity<>(roleServiceImpl.deleteRole(id), HttpStatus.OK);
-        }
-        catch (Exception e) {
-            return new ResponseEntity<>(e, HttpStatus.EXPECTATION_FAILED);
+            return new ResponseEntity<>("Role Id Not Found!", HttpStatus.EXPECTATION_FAILED);
         }
     }
 
