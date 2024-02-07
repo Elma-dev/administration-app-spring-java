@@ -1,7 +1,9 @@
 package dev.elma.commands.services.interfaces;
 
-import dev.elma.commands.dtos.RoleDto;
-import dev.elma.commands.enums.RoleName;
+
+
+import dev.elma.common.dtos.RoleDto;
+import dev.elma.common.enums.RoleName;
 
 import java.util.Optional;
 

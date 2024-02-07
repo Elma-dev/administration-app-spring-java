@@ -1,7 +1,7 @@
 package dev.elma.commands.repositories;
 
-import dev.elma.commands.entities.ProfileEntity;
-import dev.elma.commands.entities.UserEntity;
+import dev.elma.common.entities.ProfileEntity;
+import dev.elma.common.entities.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

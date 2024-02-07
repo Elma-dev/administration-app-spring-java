@@ -1,7 +1,6 @@
-package dev.elma.commands.dtos;
+package dev.elma.common.dtos;
 
-import dev.elma.commands.enums.RoleName;
-import jakarta.persistence.*;
+import dev.elma.common.enums.RoleName;
 import lombok.*;
 
 

@@ -1,6 +1,6 @@
-package dev.elma.commands.entities;
+package dev.elma.common.entities;
 
-import dev.elma.commands.enums.RoleName;
+import dev.elma.common.enums.RoleName;
 import jakarta.persistence.*;
 import lombok.*;
 

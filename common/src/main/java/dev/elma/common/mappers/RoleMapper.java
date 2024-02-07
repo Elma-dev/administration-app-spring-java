@@ -1,9 +1,7 @@
-package dev.elma.commands.mappers;
+package dev.elma.common.mappers;
 
-import dev.elma.commands.dtos.ProfileDto;
-import dev.elma.commands.dtos.RoleDto;
-import dev.elma.commands.entities.ProfileEntity;
-import dev.elma.commands.entities.RoleEntity;
+import dev.elma.common.dtos.RoleDto;
+import dev.elma.common.entities.RoleEntity;
 import org.modelmapper.ModelMapper;
 
 public class RoleMapper {

@@ -1,26 +1,29 @@
 package dev.elma.commands;
 
 
-import dev.elma.commands.dtos.ProfileDto;
-import dev.elma.commands.dtos.UserDto;
-import dev.elma.commands.entities.ProfileEntity;
-import dev.elma.commands.entities.RoleEntity;
-import dev.elma.commands.entities.UserEntity;
-import dev.elma.commands.enums.RoleName;
-import dev.elma.commands.mappers.ProfileMapper;
-import dev.elma.commands.mappers.UserMapper;
+
 import dev.elma.commands.repositories.ProfileRepository;
 import dev.elma.commands.repositories.RoleRepository;
 import dev.elma.commands.repositories.UserRepository;
+import dev.elma.common.dtos.ProfileDto;
+import dev.elma.common.dtos.UserDto;
+import dev.elma.common.entities.ProfileEntity;
+import dev.elma.common.entities.RoleEntity;
+import dev.elma.common.entities.UserEntity;
+import dev.elma.common.enums.RoleName;
+import dev.elma.common.mappers.ProfileMapper;
+import dev.elma.common.mappers.UserMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 import java.util.List;
 
 @SpringBootApplication
 @AllArgsConstructor
+@EntityScan("dev.elma.common.entities")
 public class CommandsApplication implements CommandLineRunner {
     ProfileRepository profileRepository;
     RoleRepository roleRepository;

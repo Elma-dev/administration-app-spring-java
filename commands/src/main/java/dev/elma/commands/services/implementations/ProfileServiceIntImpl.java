@@ -1,11 +1,12 @@
 package dev.elma.commands.services.implementations;
 
-import dev.elma.commands.dtos.ProfileDtoRequest;
-import dev.elma.commands.entities.ProfileEntity;
-import dev.elma.commands.entities.RoleEntity;
-import dev.elma.commands.mappers.ProfileMapper;
+
 import dev.elma.commands.repositories.ProfileRepository;
 import dev.elma.commands.services.interfaces.ProfileServiceInt;
+import dev.elma.common.dtos.ProfileDtoRequest;
+import dev.elma.common.entities.ProfileEntity;
+import dev.elma.common.entities.RoleEntity;
+import dev.elma.common.mappers.ProfileMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

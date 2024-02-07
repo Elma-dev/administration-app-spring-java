@@ -1,8 +1,7 @@
-package dev.elma.commands.dtos;
+package dev.elma.common.dtos;
 
 
-import dev.elma.commands.entities.RoleEntity;
-import dev.elma.commands.enums.RoleName;
+import dev.elma.common.enums.RoleName;
 import lombok.*;
 
 import java.util.List;

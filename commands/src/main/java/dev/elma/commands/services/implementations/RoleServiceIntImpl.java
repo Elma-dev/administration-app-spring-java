@@ -1,11 +1,12 @@
 package dev.elma.commands.services.implementations;
 
-import dev.elma.commands.dtos.RoleDto;
-import dev.elma.commands.entities.RoleEntity;
-import dev.elma.commands.enums.RoleName;
-import dev.elma.commands.mappers.RoleMapper;
+
 import dev.elma.commands.repositories.RoleRepository;
 import dev.elma.commands.services.interfaces.RoleServiceInt;
+import dev.elma.common.dtos.RoleDto;
+import dev.elma.common.entities.RoleEntity;
+import dev.elma.common.enums.RoleName;
+import dev.elma.common.mappers.RoleMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

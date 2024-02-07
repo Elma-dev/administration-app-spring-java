@@ -1,10 +1,9 @@
 package dev.elma.commands.services.interfaces;
 
-import dev.elma.commands.dtos.ProfileDto;
-import dev.elma.commands.dtos.ProfileDtoRequest;
-import dev.elma.commands.entities.ProfileEntity;
+import dev.elma.common.dtos.ProfileDtoRequest;
 
 import java.util.Optional;
+
 
 public interface ProfileServiceInt {
     Optional<?> saveProfile(ProfileDtoRequest profileDtoRequest);

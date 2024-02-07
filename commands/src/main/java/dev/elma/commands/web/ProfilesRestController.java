@@ -1,19 +1,16 @@
 package dev.elma.commands.web;
 
-import dev.elma.commands.dtos.ProfileDto;
-import dev.elma.commands.dtos.ProfileDtoRequest;
-import dev.elma.commands.entities.ProfileEntity;
-import dev.elma.commands.mappers.ProfileMapper;
 import dev.elma.commands.repositories.ProfileRepository;
-import dev.elma.commands.repositories.RoleRepository;
-import dev.elma.commands.repositories.UserRepository;
 import dev.elma.commands.services.implementations.ProfileServiceIntImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import dev.elma.common.dtos.ProfileDto;
+import dev.elma.common.dtos.ProfileDtoRequest;
+import dev.elma.common.entities.ProfileEntity;
+import dev.elma.common.mappers.ProfileMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.reflect.Constructor;
+
 import java.util.List;
 import java.util.Optional;
 

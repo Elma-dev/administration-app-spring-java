@@ -1,6 +1,8 @@
 package dev.elma.commands.services.interfaces;
 
-import dev.elma.commands.dtos.UserDtoRequest;
+
+
+import dev.elma.common.dtos.UserDtoRequest;
 
 import java.util.Optional;
 

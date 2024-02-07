@@ -1,6 +1,6 @@
-package dev.elma.commands.dtos;
+package dev.elma.common.dtos;
 
-import dev.elma.commands.entities.ProfileEntity;
+import dev.elma.common.entities.ProfileEntity;
 import lombok.*;
 
 @AllArgsConstructor
@@ -9,9 +9,9 @@ import lombok.*;
 @Setter
 @ToString
 @Builder
-public class UserDtoRequest {
+public class UserDto {
     private String username;
     private String email;
     private String password;
-    private String profileName;
+    private ProfileEntity profile;
 }

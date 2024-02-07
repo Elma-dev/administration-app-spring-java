@@ -1,8 +1,8 @@
-package dev.elma.commands.mappers;
+package dev.elma.common.mappers;
 
-import dev.elma.commands.dtos.UserDto;
-import dev.elma.commands.dtos.UserDtoRequest;
-import dev.elma.commands.entities.UserEntity;
+import dev.elma.common.dtos.UserDto;
+import dev.elma.common.dtos.UserDtoRequest;
+import dev.elma.common.entities.UserEntity;
 import org.modelmapper.ModelMapper;
 
 public class UserMapper {

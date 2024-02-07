@@ -1,8 +1,9 @@
-package dev.elma.commands.mappers;
+package dev.elma.common.mappers;
 
-import dev.elma.commands.dtos.ProfileDto;
-import dev.elma.commands.dtos.ProfileDtoRequest;
-import dev.elma.commands.entities.ProfileEntity;
+
+import dev.elma.common.dtos.ProfileDto;
+import dev.elma.common.dtos.ProfileDtoRequest;
+import dev.elma.common.entities.ProfileEntity;
 import org.modelmapper.ModelMapper;
 
 public class ProfileMapper {

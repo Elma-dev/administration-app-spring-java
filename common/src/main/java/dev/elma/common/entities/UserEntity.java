@@ -1,9 +1,7 @@
-package dev.elma.commands.entities;
+package dev.elma.common.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.List;
 
 @Entity
 @AllArgsConstructor

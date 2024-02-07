@@ -1,7 +1,7 @@
 package dev.elma.commands.repositories;
 
-import dev.elma.commands.entities.RoleEntity;
-import dev.elma.commands.enums.RoleName;
+import dev.elma.common.entities.RoleEntity;
+import dev.elma.common.enums.RoleName;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
