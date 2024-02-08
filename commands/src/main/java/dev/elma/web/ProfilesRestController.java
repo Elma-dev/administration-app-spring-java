@@ -16,6 +16,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/profiles")
+@CrossOrigin(origins = "*")
 public class ProfilesRestController {
     private final ProfileServiceIntImpl profileServiceImp;
     private final ProfileMapper profileMapper ;
