@@ -24,8 +24,7 @@ public class ProfileEntity {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private List<RoleEntity> roles;
-    @Transient
-    private List<UserEntity> users;
+
 
 
 

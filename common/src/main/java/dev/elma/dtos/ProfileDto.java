@@ -17,4 +17,5 @@ public class ProfileDto {
     private Long id;
     private String profileName;
     private List<RoleEntity> roles;
+
 }
