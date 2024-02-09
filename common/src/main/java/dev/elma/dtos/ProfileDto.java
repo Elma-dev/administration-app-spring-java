@@ -14,7 +14,7 @@ import java.util.List;
 @ToString
 @Builder
 public class ProfileDto {
-
+    private Long id;
     private String profileName;
     private List<RoleEntity> roles;
 }
